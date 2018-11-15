@@ -33,12 +33,12 @@ import javax.net.ServerSocketFactory;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocket;
 import okhttp3.Handshake;
-import okhttp3.internal.Util;
 import okio.ByteString;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import static okhttp3.internal.Util.closeQuietly;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -52,7 +52,7 @@ public final class HandshakeCertificatesTest {
 
   @After public void tearDown() {
     executorService.shutdown();
-    Util.closeQuietly(serverSocket);
+    closeQuietly(serverSocket);
   }
 
   @Test public void clientAndServer() throws Exception {
@@ -164,8 +164,8 @@ public final class HandshakeCertificatesTest {
           sslSocket.startHandshake();
           return Handshake.get(sslSocket.getSession());
         } finally {
-          Util.closeQuietly(rawSocket);
-          Util.closeQuietly(sslSocket);
+          closeQuietly(rawSocket);
+          closeQuietly(sslSocket);
         }
       }
     });
@@ -185,8 +185,8 @@ public final class HandshakeCertificatesTest {
           sslSocket.startHandshake();
           return Handshake.get(sslSocket.getSession());
         } finally {
-          Util.closeQuietly(rawSocket);
-          Util.closeQuietly(sslSocket);
+          closeQuietly(rawSocket);
+          closeQuietly(sslSocket);
         }
       }
     });
